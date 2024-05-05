@@ -1,7 +1,11 @@
+import Chai from './Chai'
 function App() {
   return (
-    <h1>Chai aur code with React</h1>
-  );
+    <>
+      <Chai />
+      <h1>Chai aur code with React</h1>
+    </>
+  )
 }
 
-export default App;
+export default App
