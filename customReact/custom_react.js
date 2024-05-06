@@ -2,7 +2,8 @@
 const mainContainer = document.querySelector('#root')
 // <div id="root"></div> = index.html
 
-// STEP2 - transpiled/compiled version (imperative, below) of our HTML element (<a> = declarative) that we wrote in JSX
+// STEP2 - transpiled/compiled version - Tree (imperative, below) of our HTML element (<a> = declarative) that we wrote in JSX
+// Ultimately, JSX -> JS, below, for all elements
 const reactElement = {
   type: 'a',
   props: {
