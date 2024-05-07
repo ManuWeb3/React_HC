@@ -5,22 +5,31 @@ import './App.css'
 
 // set range between 0 - 20 (both inclusive)
 function App() {
-  let [counter, setCounter] = useState(5)
+  const [counter, setCounter] = useState(5) // const = can ONLY change counter inside setState()
   // let counter = 5
   function addCounter() {
     if (counter <= 19) {
-      counter = counter + 1
-      console.log(counter)
-      setCounter(counter)
+      // counter = counter + 1  // won't work with const counter, works with let
+      // console.log(counter)
+
+      // NO BATCHING with callbacks
+      setCounter((prevCounter) => prevCounter + 1) // still works with const counter
+      setCounter((prevCounter) => prevCounter + 1) // still works with const counter
+      setCounter((prevCounter) => prevCounter + 1) // still works with const counter
+
+      // BATCHING in action without callbacks
+      // setCounter(counter + 1) // still works with const counter (when single, batching is for a different concept)
+      // setCounter(counter + 1)
+      // setCounter(counter + 1)
     } else {
       console.log('Value cannot exceed 20')
     }
   }
   function removeCounter() {
     if (counter >= 1) {
-      counter = counter - 1
-      console.log(counter)
-      setCounter(counter)
+      // counter = counter - 1  // won't work with const counter, works with let
+      // console.log(counter)
+      setCounter(counter - 1) // still works with const counter
     } else {
       console.log('Value cannot drop below 0')
     }
