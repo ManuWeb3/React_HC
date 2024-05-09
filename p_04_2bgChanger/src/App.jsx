@@ -17,16 +17,21 @@ function App() {
             <button
               className="outline-none px-4 py-1 rounded-full text-white shadow-lg"
               style={{ backgroundColor: 'red' }}
-              onClick={()=>{}}
+              onClick={() => setColor('red')}
             >
               Red
             </button>
-            <button className="outline-none px-4 py-1 rounded-full text-white shadow-lg bg-green-500">
+
+            <button
+              className="outline-none px-4 py-1 rounded-full text-white shadow-lg bg-green-500"
+              onClick={() => setColor('green')}
+            >
               Green
             </button>
             <button
               className="outline-none px-4 py-1 rounded-full text-white shadow-lg"
               style={{ backgroundColor: 'blue' }}
+              onClick={() => setColor('blue')}
             >
               Blue
             </button>
