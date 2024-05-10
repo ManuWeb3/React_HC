@@ -5,6 +5,8 @@ function App() {
   const [numberAllowed, setNumberAllowed] = useState(false)
   const [charAllowed, setCharAllowed] = useState(false)
   const [password, setPassword] = useState('') // some default must be given that gets showed up at 1st page load
+  const passwordRef = useRef(null) // references to null (nothing) for now, make it ref. a JSX using "ref" attribute
+
   // main function
   const passwordGenerator = useCallback(() => {
     let pass = '' // variable that stores the final returned/genertaed password -> setPassword(pass)
@@ -23,6 +25,14 @@ function App() {
   // for infinite - I believe something to do with useCallback<->useEffect as useEffect has passwordGenerator as dep.
   // audio May 08 @ 07:00 p.m.
 
+  const copyPasswordToClipboard = useCallback(() => {
+    window.navigator.clipboard.writeText(password)
+    passwordRef.current?.focus()
+    passwordRef.current?.select()
+    passwordRef.current?.setSelectionRange(0, 99) // our max. = 100
+  }, [password]) // dep. array may be left empty -> still, decent level of optimization done
+
+  // generate even @ 1st/initial render
   useEffect(() => {
     passwordGenerator()
   }, [length, numberAllowed, charAllowed, passwordGenerator])
@@ -39,11 +49,15 @@ function App() {
           <input
             type="text"
             value={password}
-            className="outline-none w-full py-1 px-3"
+            className="outline-4 w-full py-1 px-3" // instead of outline-none -> special effect focus()
             placeholder="Password"
             readOnly
+            ref={passwordRef} // in next render, JSX displays + is being referred to by "passwordRef"
           />
-          <button className="outline-none bg-blue-500 text-white px-3 py-0.5 shrink-0">
+          <button
+            className="outline-none bg-blue-500 text-white px-3 py-0.5 shrink-0 hover:bg-blue-700"
+            onClick={copyPasswordToClipboard} // reference called to have useCallback (no direct callback as NO ARG. is to be passed)
+          >
             Copy
           </button>
         </div>
