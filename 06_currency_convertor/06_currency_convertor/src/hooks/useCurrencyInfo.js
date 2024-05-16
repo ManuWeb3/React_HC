@@ -9,6 +9,7 @@ function useCurrencyInfo(currency) {
       .then((data) => setData(data[currency])) // data.currency won't work bcz it will look for currency key in data returned - crash
     // diff. between dot and [expression-evaluate / used for string]
     // has to use state here to stroe data to render at UI, and NOT a regular var. as it does not render at UI
+
     console.log(data)
   }, [currency])
   return data // as data by now has been set using setData()
