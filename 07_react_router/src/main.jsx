@@ -9,7 +9,15 @@ import {
 } from 'react-router-dom'
 import './index.css'
 import Layout from './Layout.jsx'
-import { Home, About, ContactUs, User, Github } from './components/index.js'
+import {
+  Home,
+  About,
+  ContactUs,
+  User,
+  Github,
+  githubInfoLoader,
+  Team,
+} from './components/index.js'
 
 // Methodology # 1 to create routes:
 /*
@@ -44,14 +52,20 @@ const router = createBrowserRouter([
 // Methodology # 2 to create routes: easy to read
 const router = createBrowserRouter(
   createRoutesFromElements(
+    // 1. For nesting in {Outlet}
     <Route path="/" element={<Layout />}>
       {/* all nested elements below render inside Outlet of Layout */}
       <Route path="" element={<Home />} />
-      <Route path="about" element={<About />} />
+      <Route path="about" element={<About />}>
+        {/* Can give absolute path as well like below for a comp. */}
+        <Route path="/about/team" element={<Team />} />
+      </Route>
       <Route path="contact" element={<ContactUs />} />
+      {/* 2. For Dynamic Segments */}
       <Route path="user/:userid" element={<User />} />
       {/* both <User /> and userid are associated together here itself first*/}
-      <Route path="github" element={<Github />} />
+      {/* 3. For loader */}
+      <Route path="github" element={<Github />} loader={githubInfoLoader} />
     </Route>
   )
 )

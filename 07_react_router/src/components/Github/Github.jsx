@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { useLoaderData } from 'react-router-dom'
 
 const Github = () => {
+  const data = useLoaderData()
+  /* Methodology # 1 = below. However, all commented out to use "loader" (Optimization methodology # 2) = above
   const [data, setData] = useState(0)
   // To call the API whenever Github comp. gets rendered/loaded, useEffect()
   useEffect(() => {
@@ -12,6 +15,7 @@ const Github = () => {
         console.log('Finally done')
       })
   }, [])
+  */
 
   return (
     <div className="bg-gray-700 text-white text-3xl text-center p-4 m-4">
@@ -23,3 +27,15 @@ const Github = () => {
 }
 
 export default Github
+
+// for the time being, keeping the method within this same file.
+export const githubInfoLoader = async () => {
+  try {
+    const response = await fetch('https://api.github.com/users/manuweb3')
+    return response.json() // still a "Promise", that's why 2nd .then() is added above
+  } catch (error) {
+    console.log(`Error: ${error}`)
+  } finally {
+    console.log('Finally, done!')
+  }
+}

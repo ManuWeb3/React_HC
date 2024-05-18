@@ -1,6 +1,7 @@
 import React, { useId } from 'react'
 
 // the params inside InputBox are meant for both <input> and <select>
+// destructured params below emerge out of default props object available to all the JSX comp.
 function InputBox({
   label,
   amount,
