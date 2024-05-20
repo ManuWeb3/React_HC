@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function Card() {
+  console.log('Inside Card.jsx')
   return (
     <div className="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <a href="/">

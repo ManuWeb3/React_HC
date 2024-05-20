@@ -5,15 +5,17 @@ export default function ThemeBtn() {
   const { themeMode, darkTheme, lightTheme } = useTheme()
   // got access to these states from theme.js -> ThemeBtn.jsx without prop-drill
   // bodies ALREADY defined in App.jsx for both the fns.() = darkTheme() and lightTheme()
+
   const onChangeBtn = (e) => {
     if (e.currentTarget.checked) {
-      console.log(e.currentTarget.checked)
+      console.log(`Dark: ${e.currentTarget.checked}`)
       darkTheme()
     } else {
-      console.log(e.currentTarget.checked)
+      console.log(`Dark: ${e.currentTarget.checked}`)
       lightTheme()
     }
   }
+
   return (
     <>
       <label className="relative inline-flex items-center cursor-pointer">
