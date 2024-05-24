@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import { TodoContextProvider } from './contexts/index.js'
+import { TodoForm, TodoItem } from './components'
 
 // Assign values ot all context-variables+context-methods of TodoContext.js
 function App() {
@@ -8,10 +9,6 @@ function App() {
   const [todos, setTodos] = useState([]) // default empty todos, only user can enter manually
   // individual todo, from Todo-List-Item
   const addTodo = (todo) => {
-    // add single/next/new todo (pref. @ the top = latest) to todos array = state
-    // setTodos((prevTodos) => prevTodos.push(todo)) // try with push - appends @ end but @ start - try
-    // setTodos((prevTodos) => [todo, ...prevTodos, ]) - USE by destructuring new "todo" object
-    // ... = spread, I believe, and contains "todoMsg + completed" - remiaining 2 "keys"
     setTodos((prevTodos) => {
       console.log({ ...todo })
       return [{ id: Date.now(), ...todo }, ...prevTodos]
@@ -19,11 +16,12 @@ function App() {
     }) // Date.now() = 1716233999535 in browser+node both
   }
 
+  // will be called in TodoItem.jsx inside editTodo() of TodoItem.jsx
   const updateTodo = (id, todo) => {
     setTodos((prevTodosArr) =>
       prevTodosArr.map(
         (arrTodoEle) => (arrTodoEle.id === id ? todo : arrTodoEle)
-        // MUST full/complete element (=todo object) return (not just 1 of its "keys")
+        // MUST full/complete element (=todo object) return (not just 1 of its "keys" i.e. todo - message/title)
       )
     )
   }
@@ -33,6 +31,7 @@ function App() {
     setTodos((prevTodos) => prevTodos.filter((pTodo) => pTodo.id !== id))
   }
 
+  // complete functionality here itself - just call in TodoItem.jsx
   const toggleComplete = (id) => {
     setTodos((prevTodos) =>
       prevTodos.map(
@@ -46,6 +45,22 @@ function App() {
     )
   }
 
+  // load any "todos" at initial render = useEffect()
+  useEffect(() => {
+    const todos = JSON.parse(localStorage.getItem('todos'))
+    if (todos && todos.length > 0) {
+      // they are NOT stored as array UTH, just that we initialized them and are storing them as array in our app
+      setTodos(todos) // effect UI change - render @ intital render
+    }
+  }, [])
+
+  // whenever "todos" array change in my app, it'll definitely re-render UI with updated todos
+  // BUT, I'd ALSO want it to get updated elsewhere as well = localStorage
+  // bcz todos are stored in array BUT also in localStorage = keep in sync
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos)) // converts JS array -> "JSON string"
+  }, [todos])
+
   return (
     <TodoContextProvider
       value={{ todos, addTodo, updateTodo, deleteTodo, toggleComplete }}
@@ -57,9 +72,17 @@ function App() {
           </h1>
           <div className="border-green-400 border-2 mb-4">
             {/* Todo form goes here */}
+            <TodoForm />
           </div>
           <div className="border-white border-2 flex flex-wrap gap-y-3">
-            {/*Loop and Add TodoItem here */}
+            {/*Loop "todos" (from context) and Add TodoItem here */}
+            {/* todo argument below is 1 complete element of todos [array] */}
+            {todos.map((todo) => (
+              <div key={todo.id} className="w-full">
+                <TodoItem todo={todo} />
+                {/* {todo} above is the complete single object with 3 keys */}
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -100,4 +123,15 @@ const deleteTodo = (id) => {
 // function call and test arr2
 deleteTodo(4)
 console.log(arr2)
+*/
+
+// addTodo() - explanatory comments
+/*
+add single/next/new todo (pref. @ the top = latest) to todos array = state
+setTodos((prevTodos) => prevTodos.push(todo)) // try with push - appends @ end but @ start - try
+setTodos((prevTodos) => [todo, ...prevTodos, ]) - USE by destructuring new "todo" object
+... = spread, I believe, and contains "todoMsg + completed" - remiaining 2 "keys" out of which only 1 entered by user
+ID and default completed: false IS NOT enetred by user
+id - Date.now() already below + completed: false passed by us in TodoFomr.jsx while adding "todo"
+"todo" local var. does NOT have an "id" key, hence no case of id: Date.now() getting overridden by ...todo's (non-existant) id
 */

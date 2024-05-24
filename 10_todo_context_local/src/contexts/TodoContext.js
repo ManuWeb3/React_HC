@@ -23,6 +23,6 @@ export const TodoContextProvider = TodoContext.Provider
 // ES6+ format, not CJS
 // Gives access to variables/methods inside TodoContext to all other components without prop-drill
 export const useTodo = () => {
-  console.log('Inside useTodod() hook')
+  // console.log('Inside useTodo() hook')
   return useContext(TodoContext)
 }

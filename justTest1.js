@@ -100,7 +100,7 @@ let todoArr = [
     completed: false,
   },
 ]
-
+/*
 function test(id) {
   todoArr.map((todo) => {
     todo.id === id
@@ -110,3 +110,12 @@ function test(id) {
   })
 }
 test(1)
+*/
+
+const obj1 = {
+  id: 1,
+  fName: 'Manu',
+  lName: 'kapoor',
+}
+const obj2 = { ...obj1, id: 2  }
+console.log(obj2)
