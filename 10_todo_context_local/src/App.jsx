@@ -5,34 +5,45 @@ import { TodoForm, TodoItem } from './components'
 
 // Assign values ot all context-variables+context-methods of TodoContext.js
 function App() {
+  console.log('Inside App.jsx')
   // todos below is all todos-array
   const [todos, setTodos] = useState([]) // default empty todos, only user can enter manually
-  // individual todo, from Todo-List-Item
+  // individual todo below argument = 1 complete todo object (2 keys contained), from Todo-List-Item
   const addTodo = (todo) => {
     setTodos((prevTodos) => {
-      console.log({ ...todo })
+      console.log(
+        `App.jsx: Inside Context's addTodo(), value of { ...todo } arg. = ${{
+          ...todo,
+        }}`
+      )
       return [{ id: Date.now(), ...todo }, ...prevTodos]
+      // return [todo, ...prevTodos] // ALSO WORKS - simpler and intuitive syntax
       // ULTIMATELY, array = spread, object first destructure, then obj = spread
     }) // Date.now() = 1716233999535 in browser+node both
   }
 
   // will be called in TodoItem.jsx inside editTodo() of TodoItem.jsx
   const updateTodo = (id, todo) => {
+    console.log('Inside updateTodo()')
     setTodos((prevTodosArr) =>
       prevTodosArr.map(
         (arrTodoEle) => (arrTodoEle.id === id ? todo : arrTodoEle)
         // MUST full/complete element (=todo object) return (not just 1 of its "keys" i.e. todo - message/title)
+        // implicit array returned with new/edited "todo" -> state gets sets -> re-render UI
       )
     )
+    return console.log('Done with Context-updateTodo()')
   }
 
   // filter(id !== id) => cheap operation = better
   const deleteTodo = (id) => {
+    console.log('Inside deleteTodo()')
     setTodos((prevTodos) => prevTodos.filter((pTodo) => pTodo.id !== id))
   }
 
   // complete functionality here itself - just call in TodoItem.jsx
   const toggleComplete = (id) => {
+    console.log('Inside toggleComplete()')
     setTodos((prevTodos) =>
       prevTodos.map(
         (arrTodoEle) =>
@@ -47,17 +58,19 @@ function App() {
 
   // load any "todos" at initial render = useEffect()
   useEffect(() => {
+    console.log('Inside useEffect: getItem()')
     const todos = JSON.parse(localStorage.getItem('todos'))
     if (todos && todos.length > 0) {
       // they are NOT stored as array UTH, just that we initialized them and are storing them as array in our app
       setTodos(todos) // effect UI change - render @ intital render
     }
-  }, [])
+  }, []) // empty dep.[] will run only @ Initial Render and NOT @ later re-renders
 
   // whenever "todos" array change in my app, it'll definitely re-render UI with updated todos
   // BUT, I'd ALSO want it to get updated elsewhere as well = localStorage
   // bcz todos are stored in array BUT also in localStorage = keep in sync
   useEffect(() => {
+    console.log('Inside useEffect: setItem()')
     localStorage.setItem('todos', JSON.stringify(todos)) // converts JS array -> "JSON string"
   }, [todos])
 
@@ -77,9 +90,9 @@ function App() {
           <div className="border-white border-2 flex flex-wrap gap-y-3">
             {/*Loop "todos" (from context) and Add TodoItem here */}
             {/* todo argument below is 1 complete element of todos [array] */}
-            {todos.map((todo) => (
-              <div key={todo.id} className="w-full">
-                <TodoItem todo={todo} />
+            {todos.map((todo1Object) => (
+              <div key={todo1Object.id} className="w-full">
+                <TodoItem todoProp={todo1Object} />
                 {/* {todo} above is the complete single object with 3 keys */}
               </div>
             ))}

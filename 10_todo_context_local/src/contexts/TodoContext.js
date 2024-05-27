@@ -7,7 +7,8 @@ export const TodoContext = createContext({
   todos: [
     {
       id: 1,
-      todo: 'Todo Msg', // NOT the same "todo" that's param to the context-methods below, scope {} limited here only
+      todoTextOrig: 'Todo Msg', // NOT the same "todo" that's param to the context-methods below, scope {} limited here only
+      // todoTextOrig everywhere = todoText in todo{} = todoInput entered by user in TodoFoprm.jsx
       completed: false,
     },
   ],
@@ -23,6 +24,6 @@ export const TodoContextProvider = TodoContext.Provider
 // ES6+ format, not CJS
 // Gives access to variables/methods inside TodoContext to all other components without prop-drill
 export const useTodo = () => {
-  // console.log('Inside useTodo() hook')
+  console.log('Inside useTodo() hook')
   return useContext(TodoContext)
 }
