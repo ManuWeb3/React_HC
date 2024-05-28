@@ -32,8 +32,8 @@ function TodoItem({ todoProp }) {
 
   return (
     <div
-      className={`flex border border-black/10 rounded-lg px-3 py-1.5 gap-x-3 shadow-sm shadow-white/50 duration-300  text-black ${
-        todoProp.completed ? 'bg-[#c6e9a7]' : 'bg-[#ccbed7]' // bg-changes = fn(.completed)
+      className={`border-orange-500 flex border border-black/10 rounded-lg px-3 py-1.5 gap-x-3 shadow-sm shadow-white/50 duration-300  text-black ${
+        todoProp.completed ? 'bg-[#b7e98c]' : 'bg-[#dab5f3]' // bg-changes = fn(.completed)
       }`}
     >
       <input
@@ -48,7 +48,11 @@ function TodoItem({ todoProp }) {
         ${isTodoEditable ? 'border-black/10 px-2' : 'border-transparent'} 
         ${todoProp.completed ? 'line-through' : ''}`} // strikethrough = fn(.completed)
         value={todoMsg}
-        onChange={(e) => setTodoMsg(e.target.value)}
+        onChange={(e) => {
+          console.log('Inside onChange()')
+          console.log(`${e.target.value}`)
+          return setTodoMsg(e.target.value)
+        }}
         readOnly={!isTodoEditable}
       />
       {/* Edit, Save Button */}

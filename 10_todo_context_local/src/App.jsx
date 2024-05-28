@@ -60,6 +60,7 @@ function App() {
   useEffect(() => {
     console.log('Inside useEffect: getItem()')
     const todos = JSON.parse(localStorage.getItem('todos'))
+    console.log(todos)
     if (todos && todos.length > 0) {
       // they are NOT stored as array UTH, just that we initialized them and are storing them as array in our app
       setTodos(todos) // effect UI change - render @ intital render
