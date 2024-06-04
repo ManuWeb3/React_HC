@@ -1,11 +1,13 @@
 // step # 1
 import { createSlice, nanoid } from '@reduxjs/toolkit' // nanoid = we won't use Date.now() for todo's "id" this time
 // step # 2: what's going to be the initial value (= state) in slice
+// initialState = as good as useState('') initialization
 const initialState = {
   todos: [{ id: 1, text: 'Hello World' }], // array of individual todo-objects
 } // can be any type (array, etc.)
-// step # 3: create a Slice-object (+ reducers within) -> 2 PART export todoSlice/reducer
+// step # 3: create a Slice-object (+ reducers within) -> 3-PART export todoSlice/reducer
 // Part 1 EXPORT
+// takes 3 keys
 export const todoSlice = createSlice({
   name: 'todo', // name is reserved inside @redux/toolkit
   initialState,
@@ -16,7 +18,7 @@ export const todoSlice = createSlice({
     addTodo: (state, action) => {
       const todo = {
         id: nanoid(),
-        text: action.payload.text, // = action.payload, Not 'Hello World'
+        text: action.payload, // = action.payload, Not 'Hello World'
       }
       // intellisense knows about "todos" in state below from initialState's "todos" above
       // How initialState got related to state.todos below
@@ -26,7 +28,8 @@ export const todoSlice = createSlice({
 
     // 2. DELETE/REMOVE
     removeTodo: (state, action) => {
-      state.todos = state.todos.filter((todo) => todo.id != action.payload.id) // check return value without using 'return'
+      // dispatch(removeTodo(todo.id)) in Todos.jsx
+      state.todos = state.todos.filter((todo) => todo.id != action.payload) // check return value without using 'return'
       // override todos[] with the filtered array[]
     },
 
@@ -50,11 +53,12 @@ export const todoSlice = createSlice({
   }, // a property-key of "slice" that actually contains methods as values
 })
 
-// Part 2 EXPORT/reducer: individual export FOR COMPONENTS (JSX)
+// Part 2 EXPORT/reducers: INDIVIDUAL export FOR COMPONENTS (JSX)
 // todoSlice = createD-Slice. .actions = reserved
 // exported without any custom-defined hook (like useTodo()) unlike ContextAPI
+// like we are making use of addTodo() in AddTodo.jsx & others in GetTodos.jsx (assignment)
 export const { addTodo, removeTodo, updateTodo } = todoSlice.actions
 
-// Part 3 EXPORT/reducer: collective export FOR STORE (store.js)
+// Part 3 EXPORT/reducer: COLLECTIVE export FOR STORE (store.js)
 export default todoSlice.reducer
 // register "reducer" (that's why .reducer) for STORE
