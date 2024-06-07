@@ -2,7 +2,7 @@
 // sometimes, env vars are NOT loaded properly thru import.meta.env
 // sometimes, if ID values of env contains only numbers, it's treated as numbers (NOT String) when it actually is a string
 const conf = {
-  appwriteUrl: String(import.meta.env.VITE_APPWRITE_URL),
+  appwriteUrl: String(import.meta.env.VITE_APPWRITE_URL), // Endpoint API = URL
   appwriteProjectId: String(import.meta.env.VITE_APPWRITE_PROJECT_ID),
   appwriteDatabaseId: String(import.meta.env.VITE_APPWRITE_DATABASE_ID),
   appwriteCollectionId: String(import.meta.env.VITE_APPWRITE_COLLECTION_ID),
