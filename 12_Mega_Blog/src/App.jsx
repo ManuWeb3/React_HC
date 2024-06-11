@@ -1,3 +1,4 @@
+// Major task here: @ app-mount -> if user logged in (check store for state), show posts else "login" msg showed
 import './App.css'
 
 function App() {
