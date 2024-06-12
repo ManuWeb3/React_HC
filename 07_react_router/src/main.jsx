@@ -54,7 +54,8 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     // 1. For nesting in {Outlet}
     <Route path="/" element={<Layout />}>
-      {/* all nested elements below render inside Outlet of Layout */}
+      {/* <Layout /> above renders Header -> Outlet (every comp. below nested within it) -> Footer */}
+      {/* all nested elements below render inside <Outlet /> of <Layout /> */}
       <Route path="" element={<Home />} />
       <Route path="about" element={<About />}>
         {/* Can give absolute path as well like below for a comp. */}

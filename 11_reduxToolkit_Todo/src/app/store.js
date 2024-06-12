@@ -8,4 +8,5 @@ import todoReducer from '../features/todo/todoSlice'
 // ultimately, needs to be imported to main.jsx, that's why exported below
 export const store = configureStore({
   reducer: todoReducer, // todoSlice.reducer = 3 reducers() got REGISTERED with this STORE
+  // 'reducer' can be an object with multiple k-v pairs (like Mega Blog project)
 })

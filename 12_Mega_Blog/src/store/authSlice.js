@@ -15,9 +15,9 @@ export const authSlice = createSlice({
       state.status = true // authenticated @ login
       state.userData = action.payload
     },
-    logout: (state, action) => {
-        state.status = false    // NOT authenticated ANYMORE @ logout
-        state.userData = null   // 'action' actally not needed, so can emit from params
+    logout: (state) => {
+      state.status = false // NOT authenticated ANYMORE @ logout
+      state.userData = null // 'action' actally not needed, so can emit from params
     },
   }, // login and logout as it's an auth service
 })

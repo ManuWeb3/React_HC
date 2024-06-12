@@ -1,4 +1,4 @@
-import conf from '../conf'
+import conf from '../conf/conf.js'
 import { Client, Account, ID } from 'appwrite'
 // don't copy-paste the code suggested by appwrite underneath above import - separation of concerns
 export class AuthService {
@@ -77,7 +77,7 @@ export class AuthService {
     return null
   }
 }
-// authService has access to all the methods/SERVICES in the class - exported
+// authService has access to all the methods/SERVICES in this class - exported
 const authService = new AuthService()
 
 // export default AuthService // avoid exporting class-only, rather export an object

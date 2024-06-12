@@ -5,7 +5,7 @@ const Github = () => {
   const data = useLoaderData()
   /* Methodology # 1 = below. However, all commented out to use "loader" (Optimization methodology # 2) = above
   const [data, setData] = useState(0)
-  // To call the API whenever Github comp. gets rendered/loaded, useEffect()
+  // To call the API whenever Github comp. gets rendered/loaded/mounted, useEffect()
   useEffect(() => {
     fetch('https://api.github.com/users/manuweb3')
       .then((response) => response.json())
