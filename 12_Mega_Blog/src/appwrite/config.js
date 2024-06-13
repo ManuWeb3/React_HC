@@ -144,16 +144,11 @@ export class Service {
   }
   // 3. Get File Preview - NO PROMISE thing
   getFilePreview(fileId) {
-    try {
-      // does return an image depending upon the file type
-      // here, it's 'bucket', Docs: it's storage.getFilePreview()
-      return this.bucket.getFilePreview(conf.appwriteBucketId, fileId)
-    } catch (error) {
-      console.log(`Appwrite error :: getFilePreview :: ${error}`)
-      return false // left to be handled by frontend
-    } finally {
-      console.log(`Done with getFilePreview()`)
-    }
+    // no try/catch needed as no Promise returned by bucket.getFilePreview()
+    // does return an image depending upon the file type
+    // here, it's 'bucket', Docs: it's storage.getFilePreview()
+    // FIRST, you got to create an image in Bucket (uiploadFile()) -> fileId gets created -> then, preview
+    return this.bucket.getFilePreview(conf.appwriteBucketId, fileId)
   }
 }
 
