@@ -1,4 +1,4 @@
-import conf from '../conf' // will need this for createDocument()
+import conf from '../conf/conf' // will need this for createDocument()
 import { Client, ID, Databases, Storage, Query } from 'appwrite'
 
 // Generic Service here that is related to DB, Storage (buckets)

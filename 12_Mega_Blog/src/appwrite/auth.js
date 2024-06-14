@@ -19,7 +19,7 @@ export class AuthService {
     // DESTRUCTURED the passed obejct-arg.
     // our custom FAILSAFE construct = try/catch/finally (missing in Docs) (Better quality code practices - Zubin)
     try {
-      // userAccount, from Docs
+      // returns: 'User' (https://appwrite.io/docs/references/cloud/models/user)
       const userAccount = await this.account.create(
         ID.unique(),
         email,
@@ -44,6 +44,7 @@ export class AuthService {
   // create as many such methods as your app needs
   async login({ email, password }) {
     try {
+      // returns: Session (https://appwrite.io/docs/references/cloud/models/session)
       return await this.account.createEmailPasswordSession(email, password) // return the resolved promise directly without intro a variable
     } catch (error) {
       throw error
@@ -55,6 +56,7 @@ export class AuthService {
 
   async getCurrentUser() {
     try {
+      // returns: 'User' (https://appwrite.io/docs/references/cloud/models/user)
       return await this.account.get() // check all such returned values in Frontend
     } catch (error) {
       //   throw error // clg() this time
