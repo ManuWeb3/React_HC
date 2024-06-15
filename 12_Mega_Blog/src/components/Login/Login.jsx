@@ -79,7 +79,7 @@ function Login() {
               })}
             />
             <Input
-              label="password"
+              label="Password: "
               type="password"
               placeholder="Enter the Password"
               {...register('password', {
